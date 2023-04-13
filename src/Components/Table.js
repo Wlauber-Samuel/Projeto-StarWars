@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ProviderTable } from '../context/ProviderTable';
 import { TableFilters } from '../context/ProviderFilters';
 
 function Table() {
-  const { planets } = React.useContext(ProviderTable);
-  const { nameFilter } = React.useContext(TableFilters);
+  const { planets } = useContext(ProviderTable);
+  const { nameFilter, combineFilters } = useContext(TableFilters);
+
+  let filter = planets;
+  combineFilters.forEach((filterBy) => {
+    const { column, comparison, value } = filterBy;
+    switch (comparison) {
+    case 'maior que':
+      filter = filter.filter((planet) => Number(planet[column]) > Number(value));
+      break;
+    case 'menor que':
+      filter = filter.filter((planet) => Number(planet[column]) < Number(value));
+      break;
+    case 'igual a':
+      filter = filter.filter((planet) => Number(planet[column]) === Number(value));
+      break;
+    default:
+      break;
+    }
+  });
+
   return (
     <div>
       <table>
@@ -26,10 +45,10 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {planets?.filter((planet) => planet.name.toLowerCase()
-            .includes(nameFilter.toLowerCase()))
-            .map((planet, index) => (
-              <tr key={ index }>
+          {filter
+            .filter((planet) => planet.name.includes(nameFilter))
+            .map((planet) => (
+              <tr key={ planet.name }>
                 <td>{planet.name}</td>
                 <td>{planet.rotation_period}</td>
                 <td>{planet.orbital_period}</td>
