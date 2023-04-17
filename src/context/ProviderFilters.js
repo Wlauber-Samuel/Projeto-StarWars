@@ -7,6 +7,12 @@ function AllFilters({ children }) {
   const [nameFilter, setNameFilter] = useState(''); // filtro de nome
   const [numericFilter, setNumericFilter] = useState([]);
   const [combineFilters, setCombineFilters] = useState([]); // array de filtros numéricos combinados adicionados pelo usuário (ex: population, orbital_period, diameter, rotation_period, surface_water)
+  const [columnFilter, setColumnFilter] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water']); // filtro de coluna
 
   const context = {
     nameFilter,
@@ -15,6 +21,8 @@ function AllFilters({ children }) {
     setNumericFilter,
     combineFilters,
     setCombineFilters,
+    columnFilter,
+    setColumnFilter,
   };
 
   return (

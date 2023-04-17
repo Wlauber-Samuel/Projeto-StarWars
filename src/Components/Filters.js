@@ -6,6 +6,8 @@ function Filters() {
     setNameFilter,
     combineFilters,
     setCombineFilters,
+    columnFilter,
+    setColumnFilter,
   } = useContext(TableFilters);
 
   const [filterInicial, setFilterInicial] = useState({
@@ -25,6 +27,8 @@ function Filters() {
   // button filter
   const buttonFilter = () => {
     setCombineFilters([...combineFilters, filterInicial]);
+    const filter = columnFilter.filter((item) => item !== filterInicial.column);
+    setColumnFilter(filter);
   };
 
   return (
@@ -42,11 +46,9 @@ function Filters() {
         value={ filterInicial.column }
         onChange={ filters }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        { columnFilter.map((item) => (
+          <option key={ item } value={ item }>{ item }</option>
+        )) }
       </select>
 
       <select
