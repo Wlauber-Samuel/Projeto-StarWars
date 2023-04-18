@@ -29,6 +29,10 @@ function Filters() {
     setCombineFilters([...combineFilters, filterInicial]);
     const filter = columnFilter.filter((item) => item !== filterInicial.column);
     setColumnFilter(filter);
+    setFilterInicial({
+      ...filterInicial,
+      column: filter[0],
+    });
   };
 
   return (
