@@ -36,7 +36,6 @@ function Filters() {
   };
 
   // button remove filter
-  // alteração no arquivo
 
   return (
     <div>
