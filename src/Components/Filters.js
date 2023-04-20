@@ -35,8 +35,6 @@ function Filters() {
     });
   };
 
-  // button remove filter
-
   return (
     <div>
       <input

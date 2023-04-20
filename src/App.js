@@ -6,12 +6,16 @@ import ProviderFilters from './context/ProviderFilters';
 
 function App() {
   return (
-    <ProviderFilters>
-      <TableProvider>
-        <Filters />
-        <Table />
-      </TableProvider>
-    </ProviderFilters>
+    <>
+      <h1>Star Wars Planets Search</h1>
+      <ProviderFilters>
+        <TableProvider>
+          <Filters />
+          <Table />
+        </TableProvider>
+      </ProviderFilters>
+
+    </>
   );
 }
 
