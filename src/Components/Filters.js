@@ -27,6 +27,7 @@ function Filters() {
   // button filter
   const buttonFilter = () => {
     setCombineFilters([...combineFilters, filterInicial]);
+    console.log(combineFilters);
     const filter = columnFilter.filter((item) => item !== filterInicial.column);
     setColumnFilter(filter);
     setFilterInicial({
@@ -35,6 +36,16 @@ function Filters() {
     });
   };
 
+  const removeFilter = () => {
+    setCombineFilters([]);
+    setColumnFilter(['population',
+      'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
+  };
+
+  const filterColunm = (item) => {
+    setCombineFilters(combineFilters.filter((i) => i !== item));
+    setColumnFilter([...columnFilter, item.column]);
+  };
   return (
     <div>
       <input
@@ -81,6 +92,30 @@ function Filters() {
       >
         Filtrar
 
+      </button>
+
+      { combineFilters.map((item) => (
+        <div
+          key={ item.column }
+          data-testid="filter"
+        >
+          { `${item.column} ${item.comparison} ${item.value}` }
+
+          <button
+            type="button"
+            onClick={ () => filterColunm(item) }
+          >
+            X
+          </button>
+        </div>
+      ))}
+
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ removeFilter }
+      >
+        Remover todas filtragens
       </button>
     </div>
   );
