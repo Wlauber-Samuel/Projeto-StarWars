@@ -7,21 +7,20 @@ function Table() {
   const { nameFilter, combineFilters } = useContext(TableFilters);
 
   let filter = planets;
+  console.log('planetas:', filter);
   combineFilters.forEach((filterBy) => {
     const { column, comparison, value } = filterBy;
-    switch (comparison) {
-    case 'maior que':
+    if (comparison === 'maior que') {
       filter = filter.filter((planet) => Number(planet[column]) > Number(value));
-      break;
-    case 'menor que':
-      filter = filter.filter((planet) => Number(planet[column]) < Number(value));
-      break;
-    case 'igual a':
-      filter = filter.filter((planet) => Number(planet[column]) === Number(value));
-      break;
-    default:
-      break;
+      return filter;
     }
+    if (comparison === 'menor que') {
+      filter = filter.filter((planet) => Number(planet[column]) < Number(value));
+      return filter;
+    }
+
+    filter = filter.filter((planet) => Number(planet[column]) === Number(value));
+    return filter;
   });
 
   return (
